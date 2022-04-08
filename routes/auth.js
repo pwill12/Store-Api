@@ -52,7 +52,7 @@ router.post("/register", async (req, res) => {
 
         const { password, ...others } = user._doc;
 
-        res.status(201).json(...others, accessToken)
+        res.status(201).json({...others, accessToken})
 
       } catch (error) {
         res.status(500).json(error)
