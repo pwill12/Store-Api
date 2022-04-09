@@ -2,7 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
-const userRoute = require('./routes/auth')
+const authRoute = require('./routes/auth')
+const userRoute = require('./routes/user')
+
 
 dotenv.config()
 
@@ -26,7 +28,9 @@ app.use(
 );
 
 
+app.use('/api/users', authRoute)
 app.use('/api/users', userRoute)
+
 
 app.listen(2000, function () {
     console.log('started')
