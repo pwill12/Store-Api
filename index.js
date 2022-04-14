@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
+const ProductRoute = require('./routes/product')
 
 
 dotenv.config()
@@ -30,8 +31,10 @@ app.use(
 
 app.use('/api/users', authRoute)
 app.use('/api/users', userRoute)
+app.use('/api/users/products', ProductRoute)
 
 
-app.listen(2000, function () {
+
+app.listen(4000, function () {
     console.log('started')
 })
