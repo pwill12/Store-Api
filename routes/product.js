@@ -59,24 +59,35 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
   
   //GET ALL PRODUCTS
   router.get("/", async (req, res) => {
-    const qNew = req.query.new;
+    let qNew = req.query.new;
     const qCategory = req.query.category;
     try {
-      let products;
+      // let products;
   
       if (qNew) {
-        products = await Product.find().sort({ createdAt: -1 }).limit(1);
+    const products = await Product.find().sort({ createdAt: -1 }).limit(1);
+     res.status(200).json(products)
       } else if (qCategory) {
-        products = await Product.find({
-          categories: {
-            $in: [qCategory],
-          },
-        });
+     Product.find({
+          // categories: {
+          //   $in: [qCategory],
+          // },
+
+          categories: qCategory
+        }, (error, data) => {
+          if (error) {
+            console.log(error)
+          } else {
+            console.log(data)
+            res.status(200).json(data)
+          }
+        })
       } else {
-        products = await Product.find();
+      const allproducts = await Product.find();
+      res.status(200).json(allproducts)
       }
   
-      res.status(200).json(products);
+      // res.status(200).json(products);
     } catch (err) {
       res.status(500).json(err);
     }
